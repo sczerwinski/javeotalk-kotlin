@@ -6,16 +6,16 @@ class EitherTest {
 
 	@Test
 	fun mapEitherOfLists() {
-		// TODO: either<String, CharSequence>.mapLeftItems { it.toInt() }
+		// TODO: either<Exception, List<String>>.mapRightItems { it.toInt() }
 	}
 
 	@Test
-	fun splitListOfEithers() {
-		// TODO: List<Either<String, Int>> -> Pair(List<Left<String>>, List<Right<Int>>)
+	fun partitionListOfEithers() {
+		// TODO: List<Either<Exception, String>> -> Pair(List<Left<Exception>>, List<Right<String>>)
 	}
 
 	@Test
 	fun nullableEither() {
-		// TODO: Either<String?, Int> -> handle null
+		// TODO: Either<Exception, String?> -> handle null
 	}
 }
