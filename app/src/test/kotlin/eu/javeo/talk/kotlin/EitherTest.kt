@@ -2,6 +2,7 @@ package eu.javeo.talk.kotlin
 
 import eu.javeo.talk.kotlin.disjoint.Either
 import org.junit.Test
+import kotlin.test.expect
 
 class EitherTest {
 
@@ -9,11 +10,13 @@ class EitherTest {
 	fun eitherLeft() {
 		// TODO: Nothing -> String
 		val x: Either<Exception, Nothing> = Either.Left(Exception())
-		when (x) {
-			is Either.Left -> println(x.value)
-			is Either.Right -> println("right")
-			else -> println("something else")
+		expect("") {
+			when (x) {
+				is Either.Left -> x.value.message ?: ""
+				is Either.Right -> "right"
+				else -> "something else"
 			// TODO: get rid of else
+			}
 		}
 	}
 
@@ -21,11 +24,13 @@ class EitherTest {
 	fun eitherRight() {
 		// TODO: Nothing -> Exception
 		val x: Either<Nothing, String> = Either.Right("Hello, World!")
-		when (x) {
-			is Either.Left -> println("left")
-			is Either.Right -> println(x.value)
-			else -> println("something else")
+		expect("Hello, World!") {
+			when (x) {
+				is Either.Left -> "left"
+				is Either.Right -> x.value
+				else -> "something else"
 			// TODO: get rid of else
+			}
 		}
 	}
 
