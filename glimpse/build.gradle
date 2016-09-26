@@ -1,0 +1,24 @@
+buildscript {
+	ext.kotlin_version = '1.0.4'
+	ext.glimpse_version = '0.3'
+
+	repositories {
+		jcenter()
+	}
+
+	dependencies {
+		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
+	}
+}
+
+apply plugin: 'kotlin'
+
+repositories {
+	jcenter()
+}
+
+dependencies {
+	compile "org.glimpseframework:glimpse-framework-api:${glimpse_version}"
+	compile "org.glimpseframework:glimpse-framework-jogl:${glimpse_version}"
+	compile "org.glimpseframework:glimpse-framework-materials:${glimpse_version}"
+}
