@@ -1,0 +1,50 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+android {
+	compileSdkVersion 23
+	buildToolsVersion "23.0.3"
+
+	defaultConfig {
+		applicationId "eu.javeo.talk.glimpse"
+		minSdkVersion 18
+		targetSdkVersion 23
+		versionCode 1
+		versionName "1.0"
+	}
+
+	buildTypes {
+		debug {
+			debuggable true
+			versionNameSuffix "-SNAPSHOT"
+		}
+		release {
+			minifyEnabled false
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+			debuggable false
+		}
+	}
+
+	sourceSets {
+		main.java.srcDirs += 'src/main/kotlin'
+		test.java.srcDirs += 'src/test/kotlin'
+	}
+
+	lintOptions {
+		abortOnError false
+	}
+}
+
+dependencies {
+	compile fileTree(dir: 'libs', include: ['*.jar'])
+
+	compile 'com.android.support:appcompat-v7:23.4.0'
+
+	compile 'org.jetbrains.anko:anko-sdk23:0.9'
+	compile 'org.jetbrains.anko:anko-support-v4:0.9'
+	compile 'org.jetbrains.anko:anko-appcompat-v7:0.9'
+
+	compile "org.glimpseframework:glimpse-framework-api:${glimpse_version}"
+	compile "org.glimpseframework:glimpse-framework-materials:${glimpse_version}"
+	compile "org.glimpseframework:glimpse-framework-android:${glimpse_version}"
+}
