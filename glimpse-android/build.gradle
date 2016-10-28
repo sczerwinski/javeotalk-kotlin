@@ -1,5 +1,5 @@
 buildscript {
-	ext.glimpse_version = '0.3'
+	ext.glimpse_version = '0.4'
 	ext.kotlin_version = '1.0.4'
 
 	repositories {

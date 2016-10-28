@@ -2,9 +2,7 @@ package eu.javeo.talk.glimpse
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import eu.javeo.talk.glimpse.models.loadObjMesh
 import glimpse.Color
-import glimpse.Point
 import glimpse.android.GlimpseView
 import glimpse.android.glimpseView
 import glimpse.cameras.camera
@@ -14,17 +12,16 @@ import glimpse.gles.Disposables
 import glimpse.materials.Textured
 import glimpse.models.sphere
 import glimpse.textures.Texture
-import glimpse.textures.mipmap
-import glimpse.textures.readTexture
 import glimpse.Vector
+import glimpse.android.io.asset
 import glimpse.cameras.perspective
-import glimpse.lights.Light
+import glimpse.lights.directionLight
 import glimpse.materials.Plastic
 import glimpse.models.Model
+import glimpse.models.loadObjMeshes
 import org.jetbrains.anko.matchParent
 import org.jetbrains.anko.relativeLayout
 import java.util.*
-
 class MainActivity : AppCompatActivity() {
 
 	lateinit var glimpseView: GlimpseView
@@ -40,7 +37,9 @@ class MainActivity : AppCompatActivity() {
 		}
 	}
 
-	val lights = listOf(Light.DirectionLight(Vector(-1f, -1f, 0f)))
+	val lights = listOf(directionLight {
+		direction { Vector(-1f, -1f, 0f) }
+	})
 
 	val earth = sphere(12).transform {
 		val time = (Date().time / 50L) % 360L
@@ -49,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 	}
 
 	val javeo: List<Model> by lazy {
-		assets.open("javeo.obj").loadObjMesh().map {
+		assets.open("javeo.obj").loadObjMeshes().map {
 			it.transform {
 				scale(.3f)
 				rotateY(-90.degrees)
@@ -72,9 +71,9 @@ class MainActivity : AppCompatActivity() {
 				onInit {
 					clearColor = Color.BLACK
 					isDepthTest = true
-					textures[Textured.TextureType.AMBIENT] = assets.open("ambient.png").readTexture { name = "ambient.png" with mipmap }
-					textures[Textured.TextureType.DIFFUSE] = assets.open("diffuse.png").readTexture { name = "diffuse.png" with mipmap }
-					textures[Textured.TextureType.SPECULAR] = assets.open("specular.png").readTexture { name = "specular.png" with mipmap }
+					textures[Textured.TextureType.AMBIENT] = asset("ambient.png").loadTexture { withMipmap() }
+					textures[Textured.TextureType.DIFFUSE] = asset("diffuse.png").loadTexture { withMipmap() }
+					textures[Textured.TextureType.SPECULAR] = asset("specular.png").loadTexture { withMipmap() }
 				}
 				onResize { v ->
 					viewport = v
@@ -106,3 +105,4 @@ class MainActivity : AppCompatActivity() {
 		Disposables.disposeAll()
 	}
 }
+
