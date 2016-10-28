@@ -9,23 +9,23 @@ import glimpse.cameras.targeted
 import glimpse.degrees
 import glimpse.io.resource
 import glimpse.jogl.glimpseFrame
-import glimpse.jogl.mousePosition
 import glimpse.lights.Light
+import glimpse.lights.directionLight
 import glimpse.materials.Plastic
 import glimpse.materials.Textured
-import glimpse.models.cube
-import glimpse.models.loadObjMesh
+import glimpse.models.loadObjMeshes
 import glimpse.models.sphere
-import glimpse.models.tetrahedron
 import glimpse.textures.Texture
-import glimpse.textures.readTexture
+import glimpse.textures.loadTexture
 import java.util.*
 
 object Context
 
 fun main(args: Array<String>) {
 
-	val lights = listOf<Light>(Light.DirectionLight(Vector(-1f, -1f, -0.5f)))
+	val lights = listOf<Light>(directionLight {
+		direction { Vector(-1f, -1f, -0.5f) }
+	})
 
 	var aspect = 1f
 	val camera = camera {
@@ -49,7 +49,7 @@ fun main(args: Array<String>) {
 		rotateX(-23.5.degrees)
 	}
 
-	val obj = Context.resource("/mesh.obj").loadObjMesh().map {
+	val obj = Context.resource("/mesh.obj").loadObjMeshes().map {
 		it.transform {
 			scale(0.3f)
 			rotateY(-90.degrees)
@@ -67,11 +67,11 @@ fun main(args: Array<String>) {
 			clearColor = Color.BLACK
 			isDepthTest = true
 			textures[Textured.TextureType.AMBIENT] =
-					Context.resource("/ambient.png").readTexture { withMipmap() }
+					Context.resource("/ambient.png").loadTexture { withMipmap() }
 			textures[Textured.TextureType.DIFFUSE] =
-					Context.resource("/diffuse.png").readTexture { withMipmap() }
+					Context.resource("/diffuse.png").loadTexture { withMipmap() }
 			textures[Textured.TextureType.SPECULAR] =
-					Context.resource("/specular.png").readTexture { withMipmap() }
+					Context.resource("/specular.png").loadTexture { withMipmap() }
 		}
 		onResize { v ->
 			viewport = v
