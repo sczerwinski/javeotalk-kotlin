@@ -23,3 +23,18 @@ Live coding includes examples:
 * Textured sphere.
 * A mesh loaded from OBJ file.
 * Android example.
+
+## Delegation in Kotlin
+
+Delegate Without Boilerplate
+
+Delegation pattern:
+* Fake multiple inheritance
+* Strategy
+
+Delegated properties:
+* Lazy
+* Observable
+* Vetoable
+* Maps
+* Custom
